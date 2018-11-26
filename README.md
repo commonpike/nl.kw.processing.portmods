@@ -14,22 +14,20 @@ also sometimes called the "processing library directory".
 You can find its location in the Processing app, in the menu,
 under preferences. It's usually in your homedir somewhere.
 
-Or you can downlaod it from here, and put it there yourself.
+Or you can download it from here, and put it in that folder
+yourself. Once it's there, choose 
 
 ## Folder structure
 
 ```
-- build
-  `- source
-    java source files
-  `- compiled
-    compiled source files
 - library
-  the only folder you need, containg the jar file
+    The only folder you need, containg the jar file
 - README.md 
-  this file
+    This file
 - README.pdf
-  documentation
+    Introduction with pictures
+- build
+    Java source files
 ```
 
 ## Feedback & Problems 
