@@ -5,9 +5,9 @@ import java.util.UUID;
 
 class ModPort {
 
-  protected float _default      = 0;
-  protected float source        = 0;
-  protected float result        = 0;
+  protected double _default      = 0;
+  protected double source        = 0;
+  protected double result        = 0;
   protected ModPort pushport    = null;
   protected ModPort pullport = null;  
   protected boolean hasChanged  = true;
@@ -53,12 +53,12 @@ class ModPort {
   
   // shorthand
   
-  public ModPort set(float val) { return this.setSource(val); }
-  public ModPort res(float val) { return this.setResult(val); }
-  public ModPort def(float val) { return this.setDefault(val,true); }
+  public ModPort set(double val) { return this.setSource(val); }
+  public ModPort res(double val) { return this.setResult(val); }
+  public ModPort def(double val) { return this.setDefault(val,true); }
   
   // methods
-  public ModPort setSource(float val) {
+  public ModPort setSource(double val) {
     this.mod.debug(this,"setSource",val);
     if (this.source!=val) {
       this.source=val;
@@ -78,14 +78,14 @@ class ModPort {
     return this;
   }
   
-  private ModPort setResult(float val) {
+  private ModPort setResult(double val) {
     this.mod.debug(this,"setResult",val);
     this.hasChanged=false;
     this.result=val;
     return this;
   }
   
-  private ModPort setDefault(float val, boolean reset) {
+  private ModPort setDefault(double val, boolean reset) {
     this.mod.debug(this,"setDefault",val);
     this._default=val;
     if (reset) this.reset();
@@ -99,12 +99,12 @@ class ModPort {
   
   // shorthand
   
-  public float get() { return this.getResult(); }
-  public float src() { return this.getSource(); }
-  public float def() { return this.getDefault(); }
+  public double get() { return this.getResult(); }
+  public double src() { return this.getSource(); }
+  public double def() { return this.getDefault(); }
   
   // methods
-  public float getResult() {
+  public double getResult() {
     
     this.mod.debug(this,"getResult");
     
@@ -151,7 +151,7 @@ class ModPort {
     return this.result;
   }
   
-  public float getResult(UUID pid) {
+  public double getResult(UUID pid) {
     
     // a port is calling this in a process
     // that is updating the whole cluster
@@ -193,11 +193,11 @@ class ModPort {
     return this.result;
   }
   
-  private float getSource() {
+  private double getSource() {
     return this.source;
   }
   
-  private float getDefault() {
+  private double getDefault() {
     return this._default;
   }
   

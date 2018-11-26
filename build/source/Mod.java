@@ -162,23 +162,23 @@ class Mod {
   // value stuff
   
   // shorthand
-  public float get(String portname) { return this.getResult(portname); }
-  public float get(String modname, String portname) { return this.getResult(modname,portname); }
-  public Mod set(String portname, float value) { return this.setSource(portname,value); }
-  public Mod set(String modname, String portname, float value) { return this.setSource(modname,portname,value); }
+  public double get(String portname) { return this.getResult(portname); }
+  public double get(String modname, String portname) { return this.getResult(modname,portname); }
+  public Mod set(String portname, double value) { return this.setSource(portname,value); }
+  public Mod set(String modname, String portname, double value) { return this.setSource(modname,portname,value); }
   
   // methods
-  public float getResult(String portname) {
+  public double getResult(String portname) {
     return this.getPort(portname).getResult();
   }
-  public float getResult(String modname, String portname) {
+  public double getResult(String modname, String portname) {
     return this.getMod(modname).getResult(portname);
   }
-  public Mod setSource(String portname, float value) {
+  public Mod setSource(String portname, double value) {
     this.getPort(portname).setSource(value);
     return this;
   }
-  public Mod setSource(String modname, String portname, float value) {
+  public Mod setSource(String modname, String portname, double value) {
     this.getMod(modname).setSource(portname,value);
     return this;
   }

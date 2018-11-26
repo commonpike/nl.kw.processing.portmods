@@ -31,9 +31,9 @@ class ModLin extends Mod {
     addPort("out");
   }
   protected void calc() {
-    float s = get("speed")/100;
-    float dy = get("shift");
-    float t = get("tick");
+    double s = get("speed")/100;
+    double dy = get("shift");
+    double t = get("tick");
     set("out",dy+s*t);
   }
 }
@@ -52,12 +52,12 @@ class ModSin extends Mod {
    }
    
    protected void calc() {
-      float x  = get("tick");
-      float dx = get("phase")*processing.core.PApplet.TWO_PI/100;
-      float fx = get("speed")*processing.core.PApplet.TWO_PI/(100*100);
-      float dy = get("shift");
-      float fy = get("amp");
-      float y = dy+fy*Math.sin(fx*x-dx);
+      double x  = get("tick");
+      double dx = get("phase")*processing.core.PApplet.TWO_PI/100;
+      double fx = get("speed")*processing.core.PApplet.TWO_PI/(100*100);
+      double dy = get("shift");
+      double fy = get("amp");
+      double y = dy+fy*Math.sin(fx*x-dx);
       set("out",y);
    }
    
@@ -79,13 +79,13 @@ class ModBlock extends Mod {
    }
    
    protected void calc() {
-      float x  = get("tick");
-      float dx = get("phase");
-      float fx = get("speed")/100;
-      float dy = get("shift");
-      float fy = get("amp");
-      float modx = (((fx*x-dx) % 100)+100) %100;
-      float y = dy+fy;
+      double x  = get("tick");
+      double dx = get("phase");
+      double fx = get("speed")/100;
+      double dy = get("shift");
+      double fy = get("amp");
+      double modx = (((fx*x-dx) % 100)+100) %100;
+      double y = dy+fy;
       if ( modx >= 50) y = dy-fy;
       set("out",y);
    }
@@ -108,17 +108,17 @@ class ModTri extends Mod {
    }
    
    protected void calc() {
-      float x  = get("tick");
-      float dx = get("phase");
-      float fx = get("speed")/100;
-      float dy = get("shift");
-      float fy = get("amp");
-      float modx = (((fx*x-dx) % 100)+100) %100;
+      double x  = get("tick");
+      double dx = get("phase");
+      double fx = get("speed")/100;
+      double dy = get("shift");
+      double fy = get("amp");
+      double modx = (((fx*x-dx) % 100)+100) %100;
       
-      float rx = fx*x-dx;
+      double rx = fx*x-dx;
       //y(x) = |x % 4 - 2|-1
-      float ry = 4*Math.abs(Math.abs(rx-25)%100-50)-100;
-      float y = fy/100*ry+dy;
+      double ry = 4*Math.abs(Math.abs(rx-25)%100-50)-100;
+      double y = fy/100*ry+dy;
       
       processing.core.PApplet.println(x,y);
       set("out",y);
@@ -131,10 +131,10 @@ class ModTri extends Mod {
 
 class ModRndTri extends Mod {
   
-  private float srctick;
-  private float srcval;
-  private float speed;
-  private float current;
+  private double srctick;
+  private double srcval;
+  private double speed;
+  private double current;
   private boolean asc;
   private boolean inited=false;
   
@@ -155,12 +155,12 @@ class ModRndTri extends Mod {
     
     if (!this.inited) init();
     
-    float lapsed = get("tick")-srctick;
-    float shift = get("shift");
+    double lapsed = get("tick")-srctick;
+    double shift = get("shift");
     this.current = srcval+lapsed*speed;
     set("out",this.current+shift);
     
-    float dst = get("dst");
+    double dst = get("dst");
     this.debug(this,this.current,dst,asc);
     if (this.asc && this.current>=dst) {
       this.jump();
@@ -172,9 +172,9 @@ class ModRndTri extends Mod {
   public void init() {
     this.debug(this,"init");
     this.jump();
-    float amp = get("amp");
+    double amp = get("amp");
     this.srcval = random.nextFloat()*amp*2-amp;
-    float speed = get("speed")/100;
+    double speed = get("speed")/100;
     this.speed = random.nextFloat()*speed;
     this.asc = (get("dst")>srcval);
     if (!this.asc) this.speed=-this.speed;
@@ -185,10 +185,10 @@ class ModRndTri extends Mod {
     this.debug(this,"jump");
     this.srcval = this.current;
     this.srctick = get("tick");
-    float speed = get("speed")/100;
+    double speed = get("speed")/100;
     this.speed = random.nextFloat()*speed;
-    float amp = get("amp");
-    float dstval = random.nextFloat()*amp*2-amp;
+    double amp = get("amp");
+    double dstval = random.nextFloat()*amp*2-amp;
     set("dst",dstval);
     this.asc = (dstval>srcval);
     if (!this.asc) this.speed=-this.speed;
@@ -215,9 +215,9 @@ class ModFuzz extends Mod {
    }
    
    protected void calc() {
-      float in = get("in");
-      float amp = get("amp");
-      float out = in+random.nextFloat()*amp-amp/2;
+      double in = get("in");
+      double amp = get("amp");
+      double out = in+random.nextFloat()*amp-amp/2;
       set("out",out);
    }
    
@@ -228,10 +228,16 @@ class ModFuzz extends Mod {
 
 class ModNoise extends Mod {
   
-   private float ticker;
+   private double ticker;
+   private PApplet applet;
    
    ModNoise() {
+   	throw new RuntimeException(this.toString()+" needs access to your applet - use `new ModNoise(this)`.");
+   }
+   
+   ModNoise(PApplet applet) {
      super();
+     this.applet = applet;
      addPort("in").def(0);  
      addPort("pink").def(100);
      addPort("amp").def(100);
@@ -239,13 +245,13 @@ class ModNoise extends Mod {
    }
    
    protected void calc() {
-      float in = get("in");
-      float amp = get("amp");
-      float pink = get("pink");
+      double in = get("in");
+      double amp = get("amp");
+      double pink = get("pink");
       this.ticker += pink/2000;
-      float fuzz = processing.core.PApplet.noise(this.ticker)-.5;
-      processing.core.PApplet.println(in,amp*fuzz);
-      float out = in+amp*fuzz;
+      double fuzz = applet.noise((float)this.ticker)-.5;
+      //processing.core.PApplet.println(in,amp*fuzz);
+      double out = in+amp*fuzz;
       set("out",out);
    }
    
@@ -275,19 +281,19 @@ class Mod2dCirc extends Mod {
    public void calc() {
           
     //processing.core.PApplet.println(this,"calc");
-    float t  = get("tick");
-    float dt = get("phase")*processing.core.PApplet.TWO_PI/100;
-    float ft = get("speed")*processing.core.PApplet.TWO_PI/(100*100);
+    double t  = get("tick");
+    double dt = get("phase")*processing.core.PApplet.TWO_PI/100;
+    double ft = get("speed")*processing.core.PApplet.TWO_PI/(100*100);
     
-    float dx = get("shiftx");
-    float fx = get("radius");
+    double dx = get("shiftx");
+    double fx = get("radius");
     
-    float x = dx+fx*Math.sin(ft*t-dt);
+    double x = dx+fx*Math.sin(ft*t-dt);
     set("outx",x);
     
-    float dy = get("shifty");
-    float fy = get("radius");
-    float y = dy+fy*Math.cos(ft*t-dt);
+    double dy = get("shifty");
+    double fy = get("radius");
+    double y = dy+fy*Math.cos(ft*t-dt);
     set("outy",y);
       
   }
@@ -314,19 +320,19 @@ class Mod2dEllipse extends Mod {
    
    public void calc() {
      
-      float t  = get("tick");
-      float dt = get("phase")*processing.core.PApplet.TWO_PI/100;
-      float ft = get("speed")*processing.core.PApplet.TWO_PI/(100*100);
+      double t  = get("tick");
+      double dt = get("phase")*processing.core.PApplet.TWO_PI/100;
+      double ft = get("speed")*processing.core.PApplet.TWO_PI/(100*100);
       
-      float dx = get("shiftx");
-      float fx = get("width");
+      double dx = get("shiftx");
+      double fx = get("width");
       
-      float x = dx+fx*Math.sin(ft*t-dt);
+      double x = dx+fx*Math.sin(ft*t-dt);
       set("outx",x);
       
-      float dy = get("height");
-      float fy = get("ampy");
-      float y = dy+fy*Math.cos(ft*t-dt);
+      double dy = get("height");
+      double fy = get("ampy");
+      double y = dy+fy*Math.cos(ft*t-dt);
       set("outy",y);
       
    }
@@ -381,10 +387,10 @@ class Mod2dCog extends Mod {
   public void calc() {
     //processing.core.PApplet.println(this,"calc",get("block","out"),get("block","speed"));
     //get("block","out");
-    float s = this.get("speed")/100;
-    float t = this.get("tooth");
-    float a = this.get("radius");
-    float p = this.get("phase");
+    double s = this.get("speed")/100;
+    double t = this.get("tooth");
+    double a = this.get("radius");
+    double p = this.get("phase");
     mod("block")
       .set("speed",s*t)
       .set("shift",a*7/8)
@@ -419,12 +425,12 @@ class ModColor extends Mod {
   
   // shorthand
   // PDE preprocessors fails on this 
-  public void color(float val) { this.setColor(val); }
+  public void color(double val) { this.setColor(val); }
   public int color() { return this.getColor(); }
   
   // methods
   
-  public void setColor(float val) {
+  public void setColor(double val) {
     this.setColor((int)val);
   }
   
@@ -445,12 +451,12 @@ class ModColor extends Mod {
   
   public void calc() {
     
-    int a = (int)Math.min(100,Math.abs(get("alpha")))*2.55 << 24;   // Binary: 11111111000000000000000000000000
-    int r = (int)Math.min(100,Math.abs(get("red")))*2.55 << 16;     // Binary: 00000000110011000000000000000000
-    int g = (int)Math.min(100,Math.abs(get("green")))*2.55 << 8;    // Binary  00000000000000001100110000000000
-    int b = (int)Math.min(100,Math.abs(get("blue")))*2.55;          // Binary: 00000000000000000000000000110011
-    // OR the values together:                            // Binary: 11111111110011001100110000110011 
+    int a = (int)(Math.min(100,Math.abs(get("alpha")))*2.55) << 24;   // Binary: 11111111000000000000000000000000
+    int r = (int)(Math.min(100,Math.abs(get("red")))*2.55)   << 16;   // Binary: 00000000110011000000000000000000
+    int g = (int)(Math.min(100,Math.abs(get("green")))*2.55) << 8;    // Binary  00000000000000001100110000000000
+    int b = (int)(Math.min(100,Math.abs(get("blue")))*2.55);          // Binary: 00000000000000000000000000110011
+    // OR the values together:                            					  // Binary: 11111111110011001100110000110011 
     this.col = a | r | g | b; 
-    set("out",100*(float)this.col/0xffffff);
+    set("out",100*(double)this.col/0xffffff);
   }
 }
