@@ -3,7 +3,7 @@ package nl.kw.processing.mods;
 
 public class Mod2dCog extends Mod {
 
-  Mod2dCog() {
+  public Mod2dCog() {
     super();
     addPort("tick").def(0);
     addPort("speed").def(100);
@@ -37,10 +37,10 @@ public class Mod2dCog extends Mod {
   public void calc() {
     //processing.core.PApplet.println(this,"calc",get("block","out"),get("block","speed"));
     //get("block","out");
-    double s = this.get("speed")/100;
-    double t = this.get("tooth");
-    double a = this.get("radius");
-    double p = this.get("phase");
+    float s = this.get("speed")/100;
+    float t = this.get("tooth");
+    float a = this.get("radius");
+    float p = this.get("phase");
     mod("block")
       .set("speed",s*t)
       .set("shift",a*7/8)

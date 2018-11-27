@@ -7,7 +7,7 @@ import processing.core.*;
 
 public class Mod2dEllipse extends Mod {
   
-   Mod2dEllipse() {
+   public Mod2dEllipse() {
      super();
      addPort("tick").def(0);
      addPort("shiftx").def(0); 
@@ -22,19 +22,19 @@ public class Mod2dEllipse extends Mod {
    
    public void calc() {
      
-      double t  = get("tick");
-      double dt = get("phase")*processing.core.PApplet.TWO_PI/100;
-      double ft = get("speed")*processing.core.PApplet.TWO_PI/(100*100);
+      float t  = get("tick");
+      float dt = get("phase")*processing.core.PApplet.TWO_PI/100;
+      float ft = get("speed")*processing.core.PApplet.TWO_PI/(100*100);
       
-      double dx = get("shiftx");
-      double fx = get("width");
+      float dx = get("shiftx");
+      float fx = get("width");
       
-      double x = dx+fx*Math.sin(ft*t-dt);
+      float x = dx+fx*(float)Math.sin(ft*t-dt);
       set("outx",x);
       
-      double dy = get("height");
-      double fy = get("ampy");
-      double y = dy+fy*Math.cos(ft*t-dt);
+      float dy = get("height");
+      float fy = get("ampy");
+      float y = dy+fy*(float)Math.cos(ft*t-dt);
       set("outy",y);
       
    }

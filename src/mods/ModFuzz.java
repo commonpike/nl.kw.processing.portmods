@@ -8,7 +8,7 @@ public class ModFuzz extends Mod {
   
    Random random = new Random();
    
-   ModFuzz() {
+   public ModFuzz() {
      super();
      addPort("in").def(0);      
      addPort("amp").def(100);
@@ -16,9 +16,9 @@ public class ModFuzz extends Mod {
    }
    
    protected void calc() {
-      double in = get("in");
-      double amp = get("amp");
-      double out = in+random.nextFloat()*amp-amp/2;
+      float in = get("in");
+      float amp = get("amp");
+      float out = in+random.nextFloat()*amp-amp/2;
       set("out",out);
    }
    

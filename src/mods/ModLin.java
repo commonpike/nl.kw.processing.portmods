@@ -4,7 +4,7 @@ package nl.kw.processing.mods;
 
 
 public class ModLin extends Mod {
-  ModLin() {
+  public ModLin() {
     super();
     addPort("tick");
     addPort("shift"); 
@@ -12,9 +12,9 @@ public class ModLin extends Mod {
     addPort("out");
   }
   protected void calc() {
-    double s = get("speed")/100;
-    double dy = get("shift");
-    double t = get("tick");
+    float s = get("speed")/100;
+    float dy = get("shift");
+    float t = get("tick");
     set("out",dy+s*t);
   }
 }

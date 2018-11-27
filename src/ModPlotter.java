@@ -5,16 +5,16 @@ import processing.core.*;
 public class ModPlotter {
 
     public ModPort in;
-    public double[] rangein = {-100,100};
-    public double step=1;
+    public float[] rangein = {-100,100};
+    public float step=1;
     
     public ModPort outx;
-    public double[] rangex = {-100,100};
-    public double[] domainx = {-100,100};
+    public float[] rangex = {-100,100};
+    public float[] domainx = {-100,100};
      
     public ModPort outy;
-    public double[] rangey = {-100,100};
-    public double[] domainy = {-100,100};
+    public float[] rangey = {-100,100};
+    public float[] domainy = {-100,100};
      
     ModPlotter() {
       // javac is stupid
@@ -27,39 +27,39 @@ public class ModPlotter {
     // ---------------
     // shorthand
     
-    public ModPlotter in(ModPort in, double min, double max, double step) {
+    public ModPlotter in(ModPort in, float min, float max, float step) {
        return this.setPortIn(in).setRangeIn(min,max,step);
     }
-    public ModPlotter outx(ModPort outx, double min, double max) {
+    public ModPlotter outx(ModPort outx, float min, float max) {
       return this.setPortX(outx).setDomainX(min,max);
     }
-    public ModPlotter outy(ModPort outy, double min, double max) {
+    public ModPlotter outy(ModPort outy, float min, float max) {
        return this.setPortY(outy).setDomainY(min,max);
     }
     public ModPlotter ports(ModPort in, ModPort outx, ModPort outy) {
       return this.setPortIn(in).setPortX(outx).setPortY(outy);
     }
-    public ModPlotter range(double min, double max) {
+    public ModPlotter range(float min, float max) {
        return this.setRangeIn(min,max);
     }
-    public ModPlotter range(double min, double max, double step) {
+    public ModPlotter range(float min, float max, float step) {
        return this.setRangeIn(min,max,step);
     }
-    public ModPlotter rangex(double min, double max) {
+    public ModPlotter rangex(float min, float max) {
        return this.setRangeX(min,max);
     }
-    public ModPlotter rangey(double min, double max) {
+    public ModPlotter rangey(float min, float max) {
        return this.setRangeY(min,max);
     }
-    public ModPlotter domain(double xmin, double ymin, double xmax, double ymax) {
+    public ModPlotter domain(float xmin, float ymin, float xmax, float ymax) {
        this.setDomainX(xmin,xmax);
        this.setDomainY(ymin,ymax);
        return this;
     }
-    public ModPlotter domainx(double min, double max) {
+    public ModPlotter domainx(float min, float max) {
        return this.setDomainX(min,max);
     }
-    public ModPlotter domainy(double min, double max) {
+    public ModPlotter domainy(float min, float max) {
        return this.setDomainY(min,max);
     }
     
@@ -70,12 +70,12 @@ public class ModPlotter {
       this.in = in; 
       return this;
     }
-    public ModPlotter setRangeIn(double min, double max) {
+    public ModPlotter setRangeIn(float min, float max) {
        this.rangein[0]=min;
        this.rangein[1]=max;
        return this;
     }
-    public ModPlotter setRangeIn(double min, double max, double step) {
+    public ModPlotter setRangeIn(float min, float max, float step) {
        this.rangein[0]=min;
        this.rangein[1]=max;
        this.step = step;
@@ -85,12 +85,12 @@ public class ModPlotter {
       this.outx = outx; 
       return this;
     }
-    public ModPlotter setRangeX(double min, double max) {
+    public ModPlotter setRangeX(float min, float max) {
        this.rangex[0]=min;
        this.rangey[1]=max;
        return this;
     }
-    public ModPlotter setDomainX(double min, double max) {
+    public ModPlotter setDomainX(float min, float max) {
        this.domainx[0]=min;
        this.domainx[1]=max;
        return this;
@@ -99,12 +99,12 @@ public class ModPlotter {
       this.outy = outy; 
       return this;
     }
-    public ModPlotter setRangeY(double min, double max) {
+    public ModPlotter setRangeY(float min, float max) {
        this.rangey[0]=min;
        this.rangey[1]=max;
        return this;
     }
-    public ModPlotter setDomainY(double min, double max) {
+    public ModPlotter setDomainY(float min, float max) {
        this.domainy[0]=min;
        this.domainy[1]=max;
        return this;
@@ -121,34 +121,34 @@ public class ModPlotter {
     // dx <= -40 = -20-fx*10
     
     public void plot(PApplet applet) { 
-      double fx = (domainx[1]-domainx[0])/(rangex[1]-rangex[0]);
-      double fy = (domainy[1]-domainy[0])/(rangey[1]-rangey[0]);
-      double dx = domainx[0]-fx*rangex[0];
-      double dy = domainy[0]-fy*rangey[0];
-      for (double i=rangein[0];i<rangein[1];i+=step) {
+      float fx = (domainx[1]-domainx[0])/(rangex[1]-rangex[0]);
+      float fy = (domainy[1]-domainy[0])/(rangey[1]-rangey[0]);
+      float dx = domainx[0]-fx*rangex[0];
+      float dy = domainy[0]-fy*rangey[0];
+      for (float i=rangein[0];i<rangein[1];i+=step) {
         in.set(i);
-        double x = dx+fx*outx.get();
-        double y = dy+fy*outy.get();
+        float x = dx+fx*outx.get();
+        float y = dy+fy*outy.get();
         //processing.core.PApplet.println(i,x,y);
         applet.point((float)x,(float)y);
       }
     }
     
-    public double[][] points() { 
-      double fx = (domainx[1]-domainx[0])/(rangex[1]-rangex[0]);
-      double fy = (domainy[1]-domainy[0])/(rangey[1]-rangey[0]);
-      double dx = domainx[0]-fx*rangex[0];
-      double dy = domainy[0]-fy*rangey[0];
+    public float[][] points() { 
+      float fx = (domainx[1]-domainx[0])/(rangex[1]-rangex[0]);
+      float fy = (domainy[1]-domainy[0])/(rangey[1]-rangey[0]);
+      float dx = domainx[0]-fx*rangex[0];
+      float dy = domainy[0]-fy*rangey[0];
       
       int steps = (int)Math.floor(rangein[1]-rangein[0]/step);
-      double[][] points = new double[steps][];
+      float[][] points = new float[steps][];
       int c = 0;
-      for (double i=rangein[0];i<rangein[1];i+=step) {
+      for (float i=rangein[0];i<rangein[1];i+=step) {
         in.set(i);
-        double x = dx+fx*outx.get();
-        double y = dy+fy*outy.get();
+        float x = dx+fx*outx.get();
+        float y = dy+fy*outy.get();
         //processing.core.PApplet.println(i,x,y);
-        points[c++] = new double[] {x,y};
+        points[c++] = new float[] {x,y};
       }
       return points;
     }
@@ -160,14 +160,14 @@ public class ModPlotter {
     public PShape shape(PApplet applet,boolean close) { 
       PShape s = applet.createShape();
       s.beginShape();
-      double fx = (domainx[1]-domainx[0])/(rangex[1]-rangex[0]);
-      double fy = (domainy[1]-domainy[0])/(rangey[1]-rangey[0]);
-      double dx = domainx[0]-fx*rangex[0];
-      double dy = domainy[0]-fy*rangey[0];
-      for (double i=rangein[0];i<rangein[1];i+=step) {
+      float fx = (domainx[1]-domainx[0])/(rangex[1]-rangex[0]);
+      float fy = (domainy[1]-domainy[0])/(rangey[1]-rangey[0]);
+      float dx = domainx[0]-fx*rangex[0];
+      float dy = domainy[0]-fy*rangey[0];
+      for (float i=rangein[0];i<rangein[1];i+=step) {
         in.set(i);
-        double x = dx+fx*outx.get();
-        double y = dy+fy*outy.get();
+        float x = dx+fx*outx.get();
+        float y = dy+fy*outy.get();
         //processing.core.PApplet.println(i,x,y);
         s.vertex((float)x,(float)y);
       }

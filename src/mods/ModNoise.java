@@ -4,14 +4,14 @@ import processing.core.*;
 
 public class ModNoise extends Mod {
   
-   private double ticker;
+   private float ticker;
    private PApplet applet;
    
-   ModNoise() {
+   public ModNoise() {
    	throw new RuntimeException(this.toString()+" needs access to your applet - use `new ModNoise(this)`.");
    }
    
-   ModNoise(PApplet applet) {
+   public ModNoise(PApplet applet) {
      super();
      this.applet = applet;
      addPort("in").def(0);  
@@ -21,13 +21,13 @@ public class ModNoise extends Mod {
    }
    
    protected void calc() {
-      double in = get("in");
-      double amp = get("amp");
-      double pink = get("pink");
+      float in = get("in");
+      float amp = get("amp");
+      float pink = get("pink");
       this.ticker += pink/2000;
-      double fuzz = applet.noise((float)this.ticker)-.5;
+      float fuzz = applet.noise((float)this.ticker)-(float).5;
       //processing.core.PApplet.println(in,amp*fuzz);
-      double out = in+amp*fuzz;
+      float out = in+amp*fuzz;
       set("out",out);
    }
    

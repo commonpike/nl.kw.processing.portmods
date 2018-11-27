@@ -2,7 +2,7 @@ package nl.kw.processing.mods;
 
 public class ModNop extends Mod {
   
-   ModNop() {
+   public ModNop() {
      super();
      debug(this,"setup");
      addPort("in"); 

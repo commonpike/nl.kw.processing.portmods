@@ -6,7 +6,7 @@ import processing.core.*;
 
 public class ModSin extends Mod {
   
-   ModSin() {
+   public ModSin() {
      super();
      addPort("tick").def(0);
      addPort("shift").def(0);      
@@ -18,12 +18,12 @@ public class ModSin extends Mod {
    }
    
    protected void calc() {
-      double x  = get("tick");
-      double dx = get("phase")*processing.core.PApplet.TWO_PI/100;
-      double fx = get("speed")*processing.core.PApplet.TWO_PI/(100*100);
-      double dy = get("shift");
-      double fy = get("amp");
-      double y = dy+fy*Math.sin(fx*x-dx);
+      float x  = get("tick");
+      float dx = get("phase")*processing.core.PApplet.TWO_PI/100;
+      float fx = get("speed")*processing.core.PApplet.TWO_PI/(100*100);
+      float dy = get("shift");
+      float fy = get("amp");
+      float y = dy+fy*(float)Math.sin(fx*x-dx);
       set("out",y);
    }
    

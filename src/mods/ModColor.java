@@ -5,7 +5,7 @@ public class ModColor extends Mod {
  
   private int col=0xff000000;
 
-  ModColor() {
+  public ModColor() {
     super();
     addPort("red").def(0); 
     addPort("green").def(0); 
@@ -16,22 +16,22 @@ public class ModColor extends Mod {
   
   // shorthand
   // PDE preprocessors fails on this 
-  public void color(double val) { this.setColor(val); }
+  public void color(float val) { this.setColor(val); }
   public int color() { return this.getColor(); }
   
   // methods
   
-  public void setColor(double val) {
+  public void setColor(float val) {
     this.setColor((int)val);
   }
   
   public void setColor(int val) {
     //processing.core.PApplet.println(this,"setColor",val);
     this.col=val;
-    this.set("red",  (val >> 16 & 0xFF)/2.55);
-    this.set("green",(val >> 8 & 0xFF)/2.55);
-    this.set("blue", (val & 0xFF)/2.55);
-    this.set("alpha",(val >>> 24)/2.55);
+    this.set("red",  (val >> 16 & 0xFF)/(float)2.55);
+    this.set("green",(val >> 8 & 0xFF)/(float)2.55);
+    this.set("blue", (val & 0xFF)/(float)2.55);
+    this.set("alpha",(val >>> 24)/(float)2.55);
   }
   
   public int getColor() {
@@ -48,6 +48,6 @@ public class ModColor extends Mod {
     int b = (int)(Math.min(100,Math.abs(get("blue")))*2.55);          // Binary: 00000000000000000000000000110011
     // OR the values together:                            					  // Binary: 11111111110011001100110000110011 
     this.col = a | r | g | b; 
-    set("out",100*(double)this.col/0xffffff);
+    set("out",100*(float)this.col/0xffffff);
   }
 }

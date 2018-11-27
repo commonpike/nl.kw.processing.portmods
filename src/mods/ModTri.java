@@ -3,7 +3,7 @@ package nl.kw.processing.mods;
 
 public class ModTri extends Mod {
   
-   ModTri() {
+   public ModTri() {
      super();
      addPort("tick").def(0);
      addPort("shift").def(0);      
@@ -14,17 +14,17 @@ public class ModTri extends Mod {
    }
    
    protected void calc() {
-      double x  = get("tick");
-      double dx = get("phase");
-      double fx = get("speed")/100;
-      double dy = get("shift");
-      double fy = get("amp");
-      double modx = (((fx*x-dx) % 100)+100) %100;
+      float x  = get("tick");
+      float dx = get("phase");
+      float fx = get("speed")/100;
+      float dy = get("shift");
+      float fy = get("amp");
+      float modx = (((fx*x-dx) % 100)+100) %100;
       
-      double rx = fx*x-dx;
+      float rx = fx*x-dx;
       //y(x) = |x % 4 - 2|-1
-      double ry = 4*Math.abs(Math.abs(rx-25)%100-50)-100;
-      double y = fy/100*ry+dy;
+      float ry = 4*Math.abs(Math.abs(rx-25)%100-50)-100;
+      float y = fy/100*ry+dy;
       
       set("out",y);
    }
