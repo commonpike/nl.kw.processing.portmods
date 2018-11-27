@@ -4,7 +4,7 @@
 
 Built for Processing 3, these Mods are pieces of Java code with inputs 
 and outputs that can be interconnected. For a detailed description, see
-https://commonpike.github.io/nl.kw.processing.mods/reference/ProcessingMods.pdf
+https://commonpike.github.io/nl.kw.processing.mods/dist/ProcessingMods.pdf
 
 ## Installation
 
