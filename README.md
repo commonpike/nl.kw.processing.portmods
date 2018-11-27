@@ -30,8 +30,10 @@ from the menu bar.
     This file
 - dist
     Distribution files; an HTML summary, an introduction PDF, and possibly the ZIP
+- examples
+    Example PDEs
 - reference
-    Javadocs
+    HTML Javadocs
 - src
     Java source files
 - build
