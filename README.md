@@ -4,7 +4,7 @@
 
 Built for Processing 3, these Mods are pieces of Java code with inputs 
 and outputs that can be interconnected. For a detailed description, see
-https://commonpike.github.io/nl.kw.processing.mods/dist/ProcessingMods.pdf
+<https://commonpike.github.io/nl.kw.processing.mods/dist/ProcessingMods.pdf>
 
 ## Installation
 
@@ -16,7 +16,7 @@ under preferences. It's usually in your homedir somewhere.
 
 Or you can download it from GIT, and put it in that folder
 yourself: 
-https://github.com/commonpike/nl.kw.processing.mods
+<https://github.com/commonpike/nl.kw.processing.mods>
 
 Once it's there, choose 'sketch > import library'
 from the menu bar.
