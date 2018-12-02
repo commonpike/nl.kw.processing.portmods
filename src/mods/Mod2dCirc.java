@@ -22,8 +22,8 @@ public class Mod2dCirc extends Mod {
           
     //processing.core.PApplet.println(this,"calc");
     float t  = get("tick");
-    float dt = get("phase")*processing.core.PApplet.TWO_PI/100;
-    float ft = get("speed")*processing.core.PApplet.TWO_PI/(100*100);
+    float dt = get("phase")*2*(float)Math.PI/100;
+    float ft = get("speed")*2*(float)Math.PI/(100*100);
     
     float dx = get("shiftx");
     float fx = get("radius");
@@ -39,6 +39,6 @@ public class Mod2dCirc extends Mod {
   }
 
   public ModPlotter plotter() {
-    return plotter("tick","outx","outy");
+    return plotter("tick","outx","outy").range(0,100);
   }
 }
