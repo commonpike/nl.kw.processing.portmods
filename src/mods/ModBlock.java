@@ -19,7 +19,7 @@ public class ModBlock extends Mod {
       float fx = get("speed")/100;
       float dy = get("shift");
       float fy = get("amp");
-      float modx = (((fx*x-dx) % 100)+100) %100;
+      float modx = (((fx*(x-dx)) % 100)+100) %100;
       float y = dy+fy;
       if ( modx >= 50) y = dy-fy;
       set("out",y);

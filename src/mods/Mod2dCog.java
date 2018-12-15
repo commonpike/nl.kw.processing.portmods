@@ -1,5 +1,7 @@
 package nl.kw.processing.mods;
 
+
+
 public class Mod2dCog extends Mod2dCirc {
 
   
@@ -11,28 +13,30 @@ public class Mod2dCog extends Mod2dCirc {
     this.addPort("outer").def(100);
     
     Mod blk = this.addMod("block",new ModBlock());
-    blk.set("phase",-25);
+    
     this.port("tick").push(blk.port("tick"));
     this.port("radius").push(this,"outer");
     this.port("radius").pull(blk.port("out"));
 
-    this.resync();
+    this.sync();
   }
   
   public void calc() {
-    this.resync();
+    this.sync();
     super.calc();
   }
   
-  public void resync() {
+  public void sync() {
     float inner = this.get("inner");
     float outer = this.get("outer");
     float cogs = this.get("cogs");
     float speed = this.get("speed");
     this.mod("block")
+      .set("phase",-100/(4*cogs))
       .set("amp",(outer-inner)/2)
       .set("shift",(outer+inner)/2)
       .set("speed",cogs*speed);
   }
   
 }
+
