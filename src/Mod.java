@@ -21,7 +21,7 @@ public class Mod {
   // ------------
   // startup
   
-  Mod() {
+  protected Mod() {
     this.name = this.getClass().getSimpleName();
     this.debug("new Mod", this);
     // set your mod up here
