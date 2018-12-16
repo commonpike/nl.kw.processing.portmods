@@ -6,28 +6,31 @@ import java.util.Comparator;
 import java.lang.Math;
 
 
-public class ModPath extends Mod {
+public class Mod2dPath extends Mod {
 
-   public class PathPoint {
+   public class PathVector {
      protected float i;
-     protected float v;
-     public PathPoint(float i, float v) {
+     protected PVector v;
+     protected PathVector(float i, PVector v) {
        this.i = i;
        this.v = v;
      }
    }
    
-   private PathPoint[] points;
+   private PathVector[] points;
    
-   public ModPath() {
+   public Mod2dPath() {
      super();
      this.debug = false;
      addPort("tick").def(0);
-     addPort("shift").def(0);      
      addPort("speed").def(100);
-     addPort("amp").def(100);
      addPort("phase").def(0);
-     addPort("out").def(0); 
+     addPort("shiftx").def(0);
+     addPort("shifty").def(0);
+     addPort("ampx").def(100);
+     addPort("ampy").def(100);
+     addPort("outx").def(0); 
+     addPort("outy").def(0); 
      
      
      
@@ -36,48 +39,52 @@ public class ModPath extends Mod {
      debug();
    }
    
-   private class SortPathPoint implements Comparator<PathPoint> { 
-     public int compare(PathPoint a, PathPoint b) { 
+   private class SortPathVector implements Comparator<PathVector> { 
+     public int compare(PathVector a, PathVector b) { 
        return (int)Math.signum(a.i - b.i); 
      } 
    }
 
    // shorthand
-   public PathPoint[] points() { return this.getPoints(); }
-   public Mod points(PathPoint[] points) { return this.setPoints(points); }
+   public PathVector[] points() { return this.getPoints(); }
+   public Mod points(PathVector[] points) { return this.setPoints(points); }
    public Mod points(float[][] points) { return this.setPoints(points); }
    public Mod clear() { return this.clearPoints(); }
-   public Mod point(PathPoint point) { return this.addPoint(point); }
-   public Mod point(float i, float v) { return this.addPoint(new PathPoint(i,v)); }
+   public Mod point(PathVector point) { return this.addPoint(point); }
+   public Mod point(float i, PVector v) { return this.addPoint(new PathVector(i,v)); }
+   public Mod point(float i, float x, float y) { return this.addPoint(new PathVector(i,new PVector(x,y))); }
    
    
    
 
    // method
-   public PathPoint[] getPoints() {
+   public PathVector[] getPoints() {
      return this.points;
    }
+   
    public Mod setPoints(float[][] points) { 
-     PathPoint[] ppoints = new PathPoint[points.length];
+     PathVector[] ppoints = new PathVector[points.length];
      for (int p=0; p< points.length;p++) {
-         ppoints[p] = new PathPoint(points[p][0],points[p][1]);
+         ppoints[p] = new PathVector(points[p][0],new PVector(points[p][1],points[p][2]));
      }
      return this.setPoints(ppoints); 
   }
-  public Mod setPoints(PathPoint[] points) {
-     Arrays.sort(points, new SortPathPoint());
+  
+  public Mod setPoints(PathVector[] points) {
+     Arrays.sort(points, new SortPathVector());
      this.points = points;
      return this;
    }
    
    public Mod addPoint(float[] point) { 
-     return this.addPoint(new PathPoint(point[0],point[1])); 
-  }
-  
-   public Mod addPoint(PathPoint point) {
-     PathPoint[] newpoints;
+     this.addPoint(new PathVector(point[0],new PVector(point[1],point[2])));
+     return this;
+   }
+   
+   public Mod addPoint(PathVector point) {
+     PathVector[] newpoints;
      if (this.points==null) {
-       newpoints = new PathPoint[1];
+       newpoints = new PathVector[1];
        newpoints[0]=point;
      } else {
        newpoints = Arrays.copyOf(this.points, this.points.length + 1);
@@ -86,8 +93,9 @@ public class ModPath extends Mod {
      this.setPoints(newpoints);
      return this;
    }
+   
    public Mod clearPoints() {
-     this.points = new PathPoint[0];
+     this.points = new PathVector[0];
      return this;
    }
    
@@ -95,29 +103,23 @@ public class ModPath extends Mod {
      return ((f % m) + m ) % m;
    }
    
-   protected float getPointValue(float i) {
+   protected PVector getPointVector(float i) {
      
      if (this.points==null) {
-        return 0;
-     }
-     if (this.points.length==0) {
-        return 0;
-     }
-     if (this.points.length==1) {
-        return this.points[0].v;
+        throw new RuntimeException("Path has no points yet - use ModPath.point(x,y)");
      }
      float firsti = this.points[0].i;
-     float firstv = this.points[0].v;
+     PVector firstv = this.points[0].v;
      float lasti = this.points[this.points.length-1].i;
-     float lastv = this.points[this.points.length-1].v;
+     PVector lastv = this.points[this.points.length-1].v;
      //this.debug("before",i);
      float modi = posmod(i-firsti,lasti-firsti)+firsti;
      //this.debug("after",i);
      
      float previ = firsti;
-     float prevv = firstv;
+     PVector prevv = firstv;
      float nexti = lasti;
-     float nextv = lastv;
+     PVector nextv = lastv;
      
      int p = 0;
      while ( p < this.points.length) {
@@ -142,30 +144,35 @@ public class ModPath extends Mod {
 
       
      float progress = (modi-previ) / (nexti-previ);
-     float modv = prevv + progress * (nextv - prevv);
+     float modx = prevv.x + progress * (nextv.x - prevv.x);
+     float mody = prevv.y + progress * (nextv.y - prevv.y);
      
      //println("progress", progress);
      //println(prevv+"<"+modv+"<"+nextv);
      
-     return modv;
+     return new PVector(modx,mody);
    }
    
    protected void calc() {
-      float x  = get("tick");
-      float dx = get("phase");
-      float fx = get("speed")/100;
-      float dy = get("shift");
-      float fy = get("amp")/100;
+      float i  = get("tick");
+      float di = get("phase");
+      float fi = get("speed")/100;
+      float dx = get("shiftx");
+      float fx = get("ampx")/100;
+      float dy = get("shifty");
+      float fy = get("ampy")/100;
       
-      float modx = x*fx+dx;
-      float mody = getPointValue(modx);
+      float modi = i*fi+di;
+      PVector modv = getPointVector(modi);
       
-      float y = dy+fy*mody;
+      float x = dx+fx*modv.x;
+      float y = dy+fy*modv.y;
       
-      set("out",y);
+      set("outx",x);
+      set("outy",y);
    }
    
    public ModPlotter plotter() {
-    return plotter("tick","tick","out");
+    return plotter("tick","outx","outy");
    }
 }
