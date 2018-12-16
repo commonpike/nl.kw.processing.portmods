@@ -11,7 +11,8 @@ void setup() {
   fill(0xff000000);
   noStroke();
   rect(0,0,square,square);
-  fill(0xffffffff);
+  fill(0xff000000);
+  stroke(0xffffffff);
 }
 
 void draw() {
@@ -19,13 +20,20 @@ void draw() {
   
   // --------------
   
-  Mod2dRndPath mod = new Mod2dRndPath();
-  PShape crash = mod
-    .set("ampx",200)
-    .set("ampy",200)
-    .plotter()
-    .shape(this);
-  shape(crash);
+  Mod2dPolygon mod = new Mod2dPolygon();
+  for (int i = 0; i<4; i++) {
+    for (int j = 0; j<4; j++) {
+      float c=2+4*i+j;
+      mod.corners(c)
+        .set("shiftx",(j-2)*100+50).set("ampx",40)
+      .  set("shifty",(2-i)*100-50).set("ampy",40);
+      PShape poly = mod.plotter()
+        .range(0,100,100/c)
+        .shape(this);
+      shape(poly);
+    }
+  }
+  noLoop();
   
   // --------------
   
