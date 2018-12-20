@@ -11,7 +11,7 @@ void setup() {
   fill(0xff000000);
   noStroke();
   rect(0,0,square,square);
-  fill(0xff000000);
+  fill(0xffff0000);
   stroke(0xffffffff);
 }
 
@@ -20,13 +20,16 @@ void draw() {
   
   // --------------
   
-  Mod2dPolygon mod = new Mod2dPolygon();
+  Mod2dStar mod = new Mod2dStar();
   for (int i = 0; i<4; i++) {
     for (int j = 0; j<4; j++) {
-      float c=2+4*i+j;
-      mod.corners(c).set("ampx",40).set("ampy",40);
+      float p=2+4*i+j;
+      mod.points(p)
+        .set("inner",100/p)
+        .set("ampx",40)
+        .set("ampy",40);
       PShape poly = mod.plotter()
-        .range(0,100,100/c)
+        .range(0,100,50/p)
         .shape(this);
       shape(poly,(j-2)*100+50,(2-i)*100-50);
     }
