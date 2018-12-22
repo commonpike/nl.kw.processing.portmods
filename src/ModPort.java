@@ -9,8 +9,10 @@ public class ModPort {
   protected float source        = 0;
   protected float result        = 0;
   protected ModPort pushport    = null;
-  protected ModPort pullport = null;  
+  protected ModPort pullport 		= null;  
   protected boolean hasChanged  = true;
+  protected boolean nopush  = false;
+  protected boolean nopull  = false;
   protected Mod mod = null;  
   public String name  = null;
   
@@ -28,6 +30,12 @@ public class ModPort {
   public String toString() {
     return this.mod.name+"."+this.name;
   }
+  
+  // --------
+  // conf
+  
+  protected ModPort noPull() { this.nopull=true; return this; }
+  protected ModPort noPush() { this.nopush=true; return this; }
   
   // --------
   // process
@@ -219,6 +227,9 @@ public class ModPort {
   // methods
   public ModPort setPushPort(ModPort port) {
     this.mod.debug(this,"setPushPort",port);
+    if (this.nopush) {
+      throw new RuntimeException(this.toString()+".setPushPort - pushing on this port has been disabled");
+    }
     if (pushport!=null) {
       this.mod.warn(this,"setPushPort","overwriting pushport");
     }
@@ -231,6 +242,9 @@ public class ModPort {
   
   public ModPort setPullPort(ModPort port) {
     this.mod.debug(this,"setPullPort",port);
+    if (this.nopull) {
+      throw new RuntimeException(this.toString()+".setPullPort - pulling on this port has been disabled");
+    }
     if (pullport!=null) {
       this.mod.warn(this,"setPullPort","overwriting pullport");
     }

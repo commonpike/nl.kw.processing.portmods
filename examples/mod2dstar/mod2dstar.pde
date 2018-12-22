@@ -24,12 +24,12 @@ void draw() {
   for (int i = 0; i<4; i++) {
     for (int j = 0; j<4; j++) {
       float p=2+4*i+j;
-      mod.points(p)
+      mod.set("points",p)
         .set("inner",100/p)
         .set("ampx",40)
         .set("ampy",40);
       PShape poly = mod.plotter()
-        .range(0,100,50/p)
+        .step(50/p)
         .shape(this);
       shape(poly,(j-2)*100+50,(2-i)*100-50);
     }

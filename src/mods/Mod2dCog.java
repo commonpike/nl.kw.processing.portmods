@@ -2,7 +2,7 @@ package nl.kw.processing.mods;
 
 
 
-public class Mod2dCog extends Mod2dCirc {
+public class Mod2dCog extends Mod2dCircle {
 
   
   public Mod2dCog() {

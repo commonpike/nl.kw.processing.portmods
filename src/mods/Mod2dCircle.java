@@ -4,9 +4,9 @@ import processing.core.*;
 
 
 
-public class Mod2dCirc extends Mod {
+public class Mod2dCircle extends Mod {
   
-   public Mod2dCirc() {
+   public Mod2dCircle() {
      super();
      addPort("tick").def(0);
      addPort("shiftx").def(0); 

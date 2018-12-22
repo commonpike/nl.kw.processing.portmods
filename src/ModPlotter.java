@@ -51,6 +51,10 @@ public class ModPlotter {
     public ModPlotter rangey(float min, float max) {
        return this.setRangeY(min,max);
     }
+    public ModPlotter step(float step) {
+       this.step=step;
+       return this;
+    }
     public ModPlotter domain(float xmin, float ymin, float xmax, float ymax) {
        this.setDomainX(xmin,xmax);
        this.setDomainY(ymin,ymax);

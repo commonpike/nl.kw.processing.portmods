@@ -6,35 +6,36 @@ public class Mod2dPolygon extends Mod2dPath {
 
    public Mod2dPolygon() {
      super();
-     this.addMod("mold",new Mod2dCirc());
+     //this.debug=true;
+     this.addMod("mold",new Mod2dCircle());
+     this.addPort("sides").noPull().def(4);
+     this.addPort("rotate").noPull().def(0);
      debug();
    }
    
+   // called from extending classes to bypass setPath
+   protected void pprocess() {
+     super.process();
+   }
+   
+   protected void process() {
+     if (this.port("sides").hasChanged || this.port("rotate").hasChanged) {
+       this.clear();
+       this.make(this.port("sides").src(),this.port("rotate").src());
+     }
+     super.process();
+   }
   
-   public Mod corners(float numcorners, double offset) {
-     return this.corners(numcorners,(float)offset,true);
-   }
-   
-   public Mod corners(float numcorners, double offset, boolean clear) {
-   	 return this.corners(numcorners,(float)offset,clear);
-   }
-   
-   public Mod corners(float numcorners) {
-     return this.corners(numcorners,0,true);
-   }
-   public Mod corners(float numcorners, float offset) {
-     return this.corners(numcorners,offset,true);
-   }
-   
-   public Mod corners(float numcorners, float offset, boolean clear) {
-      if (clear) this.clear();
+
+   public Mod2dPath make(float numcorners, float rotate) {
+      this.debug(this,"making polygon");
       float inc = 100/numcorners;
       if (numcorners%2==0) {
-        this.set("mold","phase",-inc/2);
+        this.set("mold","phase",-rotate-inc/2);
       } else {
-        this.set("mold","phase",0);
+        this.set("mold","phase",-rotate);
       }
-      for (float i = offset; i<=numcorners+offset; i+=1) {
+      for (float i = 0; i<=numcorners; i+=1) {
          this.set("mold","tick",i*inc);
          float x=this.get("mold","outx");
          float y=this.get("mold","outy");

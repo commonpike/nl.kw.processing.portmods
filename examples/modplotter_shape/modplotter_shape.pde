@@ -18,7 +18,7 @@ void draw() {
   
   // --------------
   
-  Mod c = new Mod2dCirc();
+  Mod c = new Mod2dCircle();
   Mod tri = new ModTri();
   tri.set("speed",350);
   c.port("tick").push(tri,"tick");

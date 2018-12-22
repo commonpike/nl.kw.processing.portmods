@@ -18,7 +18,7 @@ void draw() {
   
   // --------------
   
-  Mod c = new Mod2dCirc();
+  Mod c = new Mod2dCircle();
   for (int i=-100; i<= 100; i++) {
     c.set("tick",i);
     point(c.get("outx"),c.get("outy"));
