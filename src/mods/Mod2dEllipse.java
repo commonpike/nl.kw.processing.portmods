@@ -1,11 +1,11 @@
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 
 import processing.core.*;
 
 
 
 
-public class Mod2dEllipse extends Mod {
+public class Mod2dEllipse extends Mod  {
   
    public Mod2dEllipse() {
      super();

@@ -1,7 +1,7 @@
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 
 
-public class ModBlock extends Mod {
+public class ModBlock extends Mod  {
   
    public ModBlock() {
      super();

@@ -1,4 +1,4 @@
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 
 import processing.core.*;
 import java.util.Arrays;
@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.lang.Math;
 
 
-public class ModPath extends Mod {
+public class ModPath extends Mod  {
 
    public class PathPoint {
      protected float i;

@@ -1,10 +1,10 @@
-20181114*pike
+20190502*pike
 
-# Processing3 Mods
+# Processing3 PortMods
 
-Built for Processing 3, these Mods are pieces of Java code with inputs 
-and outputs that can be interconnected. For a detailed description, see
-<https://commonpike.github.io/nl.kw.processing.mods/dist/ProcessingMods.pdf>
+Built for Processing 3, PortMods are pieces of Java code with input
+and output ports that can be chained. For a detailed description, see
+<https://commonpike.github.io/nl.kw.processing.portmods/dist/PortMods.pdf>
 
 ## Installation
 
@@ -16,7 +16,7 @@ under preferences. It's usually in your homedir somewhere.
 
 Or you can download it from GIT, and put it in that folder
 yourself: 
-<https://github.com/commonpike/nl.kw.processing.mods>
+<https://github.com/commonpike/nl.kw.processing.portmods>
 
 Once it's there, choose 'sketch > import library'
 from the menu bar.
@@ -26,20 +26,28 @@ from the menu bar.
 ```
 - library
     The only folder you need, containing the jar file
+- library.properties
+		The properties file for P3
 - README.md 
     This file
-- dist
-    Distribution files; an HTML summary, an introduction PDF, and possibly the ZIP
+- docs
+    Documentation; an HTML summary, an introduction PDF
 - examples
     Example PDEs
 - reference
     HTML Javadocs
 - src
     Java source files
+    
+The following files are only available on github:
+
+- dist
+    Distribution files; the ZIP    
 - build
     Compiled java classes
 - bin
     Some goodies I use for maintenance
+    
 ```
 
 ## Feedback & Problems 
@@ -48,4 +56,4 @@ If you have problems, questions, suggestions or
 additions, contact me.
 
 
-pike-p3mods@kw.nl
+pike-portmods@kw.nl
