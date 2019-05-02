@@ -1,6 +1,7 @@
 import nl.kw.processing.mods.*;
 
 int square;
+int rotate;
 
 void settings() {
   square = min(displayWidth/2,displayHeight/2);
@@ -25,16 +26,17 @@ void draw() {
     for (int j = 0; j<4; j++) {
       float p=2+4*i+j;
       mod.set("points",p)
-        .set("inner",100/p)
+        .set("inner","radius",150/p)
+        .set("rotate",rotate)
         .set("ampx",40)
         .set("ampy",40);
       PShape poly = mod.plotter()
-        .step(50/p)
+        .range(0,100,50/p)
         .shape(this);
       shape(poly,(j-2)*100+50,(2-i)*100-50);
     }
   }
-  noLoop();
+  rotate++;
   
   // --------------
   

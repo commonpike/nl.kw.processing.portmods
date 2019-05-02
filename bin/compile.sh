@@ -4,17 +4,26 @@ cd `dirname $0`/..
 
 LIBNAME=$(basename "$PWD").jar
 COREJAR=/3rdparty/Processing.app/Contents/Java/core.jar
+YES=$1
 
 echo
 
-read -p "Where is Processings core.jar [$COREJAR]? " corejar
-if [ "$corejar" = "" ]; then
+if [ "$YES" = "-y" ]; then
 	corejar=$COREJAR
+else 
+	read -p "Where is Processings core.jar [$COREJAR]? " corejar
+	if [ "$corejar" = "" ]; then
+		corejar=$COREJAR
+	fi
 fi
 
-read -p "What is the libraries name [$LIBNAME]? " libname
-if [ "$libname" = "" ]; then
+if [ "$YES" = "-y" ]; then
 	libname=$LIBNAME
+else 
+	read -p "What is the libraries name [$LIBNAME]? " libname
+	if [ "$libname" = "" ]; then
+		libname=$LIBNAME
+	fi
 fi
 
 # vi src/ExampleBar.java

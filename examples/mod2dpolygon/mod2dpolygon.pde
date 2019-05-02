@@ -30,7 +30,7 @@ void draw() {
         .set("ampx",40)
         .set("ampy",40);
       PShape poly = mod.plotter()
-        .step(100/c)
+        .range(0,100,100/c)
         .shape(this);
       shape(poly,(j-2)*100+50,(2-i)*100-50);
     }
