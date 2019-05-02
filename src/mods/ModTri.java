@@ -1,7 +1,7 @@
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 
 
-public class ModTri extends Mod {
+public class ModTri extends Mod  {
   
    public ModTri() {
      super();

@@ -1,4 +1,4 @@
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 
 import processing.core.*;
 import java.util.Arrays;
@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.lang.Math;
 
 
-public class Mod2dPath extends Mod {
+public class Mod2dPath extends Mod  {
 
    public class PathVector {
      protected float i;
@@ -47,12 +47,12 @@ public class Mod2dPath extends Mod {
 
    // shorthand
    public PathVector[] points() { return this.getPoints(); }
-   public Mod points(PathVector[] points) { return this.setPoints(points); }
-   public Mod points(float[][] points) { return this.setPoints(points); }
-   public Mod clear() { return this.clearPoints(); }
-   public Mod point(PathVector point) { return this.addPoint(point); }
-   public Mod point(float i, PVector v) { return this.addPoint(new PathVector(i,v)); }
-   public Mod point(float i, float x, float y) { return this.addPoint(new PathVector(i,new PVector(x,y))); }
+   public Mod2dPath points(PathVector[] points) { return this.setPoints(points); }
+   public Mod2dPath points(float[][] points) { return this.setPoints(points); }
+   public Mod2dPath clear() { return this.clearPoints(); }
+   public Mod2dPath point(PathVector point) { return this.addPoint(point); }
+   public Mod2dPath point(float i, PVector v) { return this.addPoint(new PathVector(i,v)); }
+   public Mod2dPath point(float i, float x, float y) { return this.addPoint(new PathVector(i,new PVector(x,y))); }
    
    
    
@@ -62,7 +62,7 @@ public class Mod2dPath extends Mod {
      return this.points;
    }
    
-   public Mod setPoints(float[][] points) { 
+   public Mod2dPath setPoints(float[][] points) { 
      PathVector[] ppoints = new PathVector[points.length];
      for (int p=0; p< points.length;p++) {
          ppoints[p] = new PathVector(points[p][0],new PVector(points[p][1],points[p][2]));
@@ -70,18 +70,18 @@ public class Mod2dPath extends Mod {
      return this.setPoints(ppoints); 
   }
   
-  public Mod setPoints(PathVector[] points) {
+  public Mod2dPath setPoints(PathVector[] points) {
      Arrays.sort(points, new SortPathVector());
      this.points = points;
      return this;
    }
    
-   public Mod addPoint(float[] point) { 
+   public Mod2dPath addPoint(float[] point) { 
      this.addPoint(new PathVector(point[0],new PVector(point[1],point[2])));
      return this;
    }
    
-   public Mod addPoint(PathVector point) {
+   public Mod2dPath addPoint(PathVector point) {
      PathVector[] newpoints;
      if (this.points==null) {
        newpoints = new PathVector[1];
@@ -94,7 +94,7 @@ public class Mod2dPath extends Mod {
      return this;
    }
    
-   public Mod clearPoints() {
+   public Mod2dPath clearPoints() {
      this.points = new PathVector[0];
      return this;
    }

@@ -1,6 +1,7 @@
-import nl.kw.processing.mods.*;
+import nl.kw.processing.portmods.*;
 
 int square;
+int rotate = 0;
 
 void settings() {
   square = min(displayWidth/2,displayHeight/2);
@@ -24,16 +25,17 @@ void draw() {
   for (int i = 0; i<4; i++) {
     for (int j = 0; j<4; j++) {
       float c=2+4*i+j;
-      mod.corners(c)
-        .set("shiftx",(j-2)*100+50).set("ampx",40)
-      .  set("shifty",(2-i)*100-50).set("ampy",40);
+      mod.set("sides",c)
+        .set("rotate",rotate)
+        .set("ampx",40)
+        .set("ampy",40);
       PShape poly = mod.plotter()
         .range(0,100,100/c)
         .shape(this);
-      shape(poly);
+      shape(poly,(j-2)*100+50,(2-i)*100-50);
     }
   }
-  noLoop();
+  rotate++;
   
   // --------------
   

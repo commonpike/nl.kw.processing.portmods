@@ -1,4 +1,4 @@
-import nl.kw.processing.mods.*;
+import nl.kw.processing.portmods.*;
 
 int square;
 
@@ -18,7 +18,7 @@ void draw() {
   
   // --------------
   
-  Mod c=new Mod2dCirc();
+  Mod c=new Mod2dCircle();
   ModPlotter p=c.plotter("tick","outx","outy");
   p.range(0,100,1);
   for (int x=-100; x<=100; x+=25) {

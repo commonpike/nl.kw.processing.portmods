@@ -1,11 +1,11 @@
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 
 import processing.core.*;
 
 
 
 
-public class Mod2dEllipse extends Mod {
+public class Mod2dEllipse extends Mod  {
   
    public Mod2dEllipse() {
      super();
@@ -23,8 +23,8 @@ public class Mod2dEllipse extends Mod {
    public void calc() {
      
       float t  = get("tick");
-      float dt = get("phase")*processing.core.PApplet.TWO_PI/100;
-      float ft = get("speed")*processing.core.PApplet.TWO_PI/(100*100);
+      float dt = get("phase")*2*(float)Math.PI/100;
+    	float ft = get("speed")*2*(float)Math.PI/(100*100);
       
       float dx = get("shiftx");
       float fx = get("width");
@@ -32,8 +32,8 @@ public class Mod2dEllipse extends Mod {
       float x = dx+fx*(float)Math.sin(ft*t-dt);
       set("outx",x);
       
-      float dy = get("height");
-      float fy = get("ampy");
+      float dy = get("shifty");
+      float fy = get("height");
       float y = dy+fy*(float)Math.cos(ft*t-dt);
       set("outy",y);
       

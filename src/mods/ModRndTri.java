@@ -1,9 +1,9 @@
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 
 import java.util.Random;
 
 
-public class ModRndTri extends Mod {
+public class ModRndTri extends Mod  {
   
   private float srctick;
   private float srcval;

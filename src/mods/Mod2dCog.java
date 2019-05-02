@@ -1,8 +1,8 @@
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 
 
 
-public class Mod2dCog extends Mod2dCirc {
+public class Mod2dCog extends Mod2dCircle {
 
   
   public Mod2dCog() {

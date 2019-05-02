@@ -1,9 +1,9 @@
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 
 
 
 
-public class ModLin extends Mod {
+public class ModLin extends Mod  {
   public ModLin() {
     super();
     addPort("tick");

@@ -1,8 +1,8 @@
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 
 import processing.core.*;
 
-public class ModNoise extends Mod {
+public class ModNoise extends Mod  {
   
    private float ticker;
    private PApplet applet;
