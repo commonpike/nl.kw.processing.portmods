@@ -1,10 +1,10 @@
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 
 import java.util.Random;
 
 
 
-public class ModFuzz extends Mod {
+public class ModFuzz extends Mod  {
   
    Random random = new Random();
    

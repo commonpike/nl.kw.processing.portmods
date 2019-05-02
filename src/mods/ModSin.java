@@ -1,10 +1,10 @@
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 
 import processing.core.*;
 
 
 
-public class ModSin extends Mod {
+public class ModSin extends Mod  {
   
    public ModSin() {
      super();

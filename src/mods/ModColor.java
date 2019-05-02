@@ -1,7 +1,7 @@
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 
 
-public class ModColor extends Mod {
+public class ModColor extends Mod  {
  
   private int col=0xff000000;
 

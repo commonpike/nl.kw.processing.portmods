@@ -1,5 +1,5 @@
 
-package nl.kw.processing.mods;
+package nl.kw.processing.portmods;
 import processing.core.*;
 
 public class Mod2dStar extends Mod2dPath {
