@@ -4,7 +4,7 @@
 
 Built for Processing 3, PortMods are pieces of Java code with input
 and output ports that can be chained. For a detailed description, see
-<https://commonpike.github.io/nl.kw.processing.portmods/dist/PortMods.pdf>
+<https://commonpike.github.io/nl.kw.processing.portmods/docs/PortMods.pdf>
 
 ## Installation
 
