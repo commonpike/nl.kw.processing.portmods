@@ -1,39 +1,99 @@
 #!/bin/sh
 
-# prisonerjohn+p5@gmail.com
-# https://github.com/processing/processing/wiki/Library-Guidelines
-
+XPWD=`pwd`
 cd `dirname $0`/..
 
-LIBNAME=$(basename "$PWD")
+echo Publishing ...
 
+
+echo --------------------
+
+
+read -n 1 -p "Compile .java files into .class and .jar [Y/n]? " answer
 echo
+if [ "$answer" != "${answer#[Nn]}" ] ;then
 
-read -p "What is the libraries name [$LIBNAME]? " libname
-if [ "$libname" = "" ]; then
-	libname=$LIBNAME
+	echo Skipping compile ...
+	echo
+	
+else
+
+	bin/compile.sh
+	
+	
 fi
 
-echo "Removing old zip .."
-touch dist/$libname.zip
-rm dist/$libname.zip
+echo --------------------
 
-echo "Some cleanup .."
-find . -name '.DS_Store' -exec rm -v {} \;
 
-echo "Zipping everything to dist/$libname.zip .."
-zip -r dist/$libname.zip \
-	src \
-	library \
-	reference \
-	examples \
-	library.properties \
-	README.md	\
-	docs
+read -n 1 -p "Generate new javadoc [Y/n]? " answer
+echo
+if [ "$answer" != "${answer#[Nn]}" ] ;then
+
+	echo Skipping doc ...
+	echo
 	
+else
 
-  
-echo All done.
+	bin/javadoc.sh
+	
+fi
+
+echo --------------------
 
 
-cd - &>/dev/null
+read -n 1 -p "Create zip for publishing [Y/n]? " answer
+echo
+if [ "$answer" != "${answer#[Nn]}" ] ;then
+
+	echo Skipping zip ...
+	echo
+	
+else
+
+	bin/createzip.sh
+	
+	
+fi
+
+echo --------------------
+
+
+if [ -d ".git" ]; then
+
+	read -n 1 -p "Update git [Y/n]? " answer
+	echo
+	if [ "$answer" != "${answer#[Nn]}" ] ;then
+		
+		echo Skipping git ...	
+		echo
+		
+	else
+	
+		git add -u :/
+		git commit
+		
+		BRANCH=`git branch | grep -e "^*" | cut -d' ' -f 2`
+		read -n 1 -p "Push $BRANCH too [Y/n]? " answer
+		echo
+		if [ "$answer" != "${answer#[Nn]}" ] ;then
+			echo Skipping push ...
+		else 
+			REMOTE="origin"
+			read -p "Git remote [$REMOTE]? " answer
+			if [ "$answer" != "" ] ;then
+				REMOTE=$answer
+			fi
+			git push $REMOTE $BRANCH
+		fi
+		
+		
+	fi
+fi
+
+echo --------------------
+
+cd "$XPWD" &>/dev/null
+echo "All done."
+
+	
