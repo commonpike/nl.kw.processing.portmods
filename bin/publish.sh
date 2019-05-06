@@ -6,10 +6,26 @@ cd `dirname $0`/..
 echo Publishing ...
 
 
+COREJAR=/3rdparty/Processing.app/Contents/Java/core.jar
+read -e -p "Where is Processings core.jar [$COREJAR]? " answer
+if [ "$answer" != "" ]; then
+	COREJAR=$answer
+fi
+
+
+LIBNAME=$(basename "$PWD")
+read -p "What is the libraries name [$LIBNAME]? " answer
+if [ "$answer" != "" ]; then
+	LIBNAME=$answer
+fi
+
+export COREJAR=$COREJAR
+export LIBNAME=$LIBNAME
+
 echo --------------------
 
 
-read -n 1 -p "Compile .jar and create javadoc [Y/n]? " answer
+read -n 1 -p "Compile .java files into .class and .jar [Y/n]? " answer
 echo
 if [ "$answer" != "${answer#[Nn]}" ] ;then
 
@@ -23,6 +39,21 @@ else
 	
 fi
 
+echo --------------------
+
+
+read -n 1 -p "Generate new javadoc [Y/n]? " answer
+echo
+if [ "$answer" != "${answer#[Nn]}" ] ;then
+
+	echo Skipping doc ...
+	echo
+	
+else
+
+	bin/javadoc.sh
+	
+fi
 
 echo --------------------
 
