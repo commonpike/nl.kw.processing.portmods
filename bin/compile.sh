@@ -4,26 +4,17 @@ cd `dirname $0`/..
 
 LIBNAME=$(basename "$PWD").jar
 COREJAR=/3rdparty/Processing.app/Contents/Java/core.jar
-YES=$1
 
 echo
 
-if [ "$YES" = "-y" ]; then
+read -p "Where is Processings core.jar [$COREJAR]? " corejar
+if [ "$corejar" = "" ]; then
 	corejar=$COREJAR
-else 
-	read -p "Where is Processings core.jar [$COREJAR]? " corejar
-	if [ "$corejar" = "" ]; then
-		corejar=$COREJAR
-	fi
 fi
 
-if [ "$YES" = "-y" ]; then
+read -p "What is the libraries name [$LIBNAME]? " libname
+if [ "$libname" = "" ]; then
 	libname=$LIBNAME
-else 
-	read -p "What is the libraries name [$LIBNAME]? " libname
-	if [ "$libname" = "" ]; then
-		libname=$LIBNAME
-	fi
 fi
 
 # vi src/ExampleBar.java
@@ -40,6 +31,20 @@ if [ $? -eq 0 ]; then
   echo "Jarring ./build/**.class to ./library/$libname.."
 	jar -cf library/$libname -C build .
 
+
+	read -n 1 -p "Create javadoc [Y/n]? " answer
+	if [ "$answer" != "${answer#[Nn]}" ] ;then
+
+		echo 'Skipping javadoc ...'
+		
+	else 
+		echo 'Document src/*.java to ./reference/*html ..'
+	
+		find src -name "*.java" -print0 | xargs -0 \
+	 		javadoc -d reference -classpath "$corejar"
+	 		
+	fi
+	
 	echo All done.
 	echo
 
