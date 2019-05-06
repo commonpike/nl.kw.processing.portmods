@@ -1,6 +1,5 @@
 #!/bin/sh
 
-# prisonerjohn+p5@gmail.com
 # https://github.com/processing/processing/wiki/Library-Guidelines
 
 OPWD=`pwd`
@@ -88,6 +87,15 @@ echo "Zipping everything to dist/$libname.zip .."
 
 cd ../
 zip -r $LIBDIRNAME/dist/$libname.zip $FILES
+	
+	
+read -n 1 -p "Copy library.properties next to zip [Y/n]? " answer
+echo
+if [ "$answer" != "${answer#[Nn]}" ] ;then
+	echo "Skipping props file ..."
+else
+	cp -v $LIBDIRNAME/library.properties $LIBDIRNAME/dist/$libname.txt
+fi	
 	
 echo All done.
 
