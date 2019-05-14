@@ -58,16 +58,16 @@ fi
 echo --------------------
 
 
-read -n 1 -p "Create zip for publishing [Y/n]? " answer
+read -n 1 -p "Create dist for publishing [Y/n]? " answer
 echo
 if [ "$answer" != "${answer#[Nn]}" ] ;then
 
-	echo Skipping zip ...
+	echo Skipping dist ...
 	echo
 	
 else
 
-	bin/createzip.sh
+	bin/createdist.sh
 	
 	
 fi
