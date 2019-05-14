@@ -6,6 +6,22 @@ cd `dirname $0`/..
 echo Publishing ...
 
 
+COREJAR=/3rdparty/Processing.app/Contents/Java/core.jar
+read -e -p "Where is Processings core.jar [$COREJAR]? " answer
+if [ "$answer" != "" ]; then
+	COREJAR=$answer
+fi
+
+
+LIBNAME=$(basename "$PWD")
+read -p "What is the libraries name [$LIBNAME]? " answer
+if [ "$answer" != "" ]; then
+	LIBNAME=$answer
+fi
+
+export COREJAR=$COREJAR
+export LIBNAME=$LIBNAME
+
 echo --------------------
 
 
@@ -42,19 +58,21 @@ fi
 echo --------------------
 
 
-read -n 1 -p "Create zip for publishing [Y/n]? " answer
+read -n 1 -p "Create dist for publishing [Y/n]? " answer
 echo
 if [ "$answer" != "${answer#[Nn]}" ] ;then
 
-	echo Skipping zip ...
+	echo Skipping dist ...
 	echo
 	
 else
 
-	bin/createzip.sh
+	bin/createdist.sh
 	
 	
 fi
+
+
 
 echo --------------------
 
