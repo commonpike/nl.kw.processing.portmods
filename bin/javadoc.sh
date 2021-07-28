@@ -3,7 +3,7 @@
 cd `dirname $0`/..
 
 if [ "$COREJAR" = "" ]; then
-	COREJAR=/3rdparty/Processing.app/Contents/Java/core.jar
+	COREJAR=/Applications/3rdparty/Processing.app/Contents/Java/core.jar
 	read -e -p "Where is Processings core.jar [$COREJAR]? " corejar
 	if [ "$corejar" = "" ]; then
 		corejar=$COREJAR

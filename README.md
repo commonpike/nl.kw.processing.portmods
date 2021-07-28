@@ -1,10 +1,17 @@
 20190502*pike
 
 # Processing3 PortMods
+<https://commonpike.github.io/nl.kw.processing.portmods>
 
 Built for Processing 3, PortMods are pieces of Java code with input
 and output ports that can be chained. For a detailed description, see
 <https://commonpike.github.io/nl.kw.processing.portmods/docs/PortMods.pdf>
+
+For the full reference, see 
+<https://commonpike.github.io/nl.kw.processing.portmods/reference/>
+
+To see what you can do with this, watch some of the animations at
+<https://www.instagram.com/studio.pike>
 
 ## Installation
 

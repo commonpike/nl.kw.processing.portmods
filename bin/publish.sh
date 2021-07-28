@@ -92,8 +92,9 @@ if [ -d ".git" ]; then
 		git commit
 		
 		BRANCH=`git branch | grep -e "^*" | cut -d' ' -f 2`
-		read -n 1 -p "Push $BRANCH too [Y/n]? " answer
+		
 		echo
+		read -n 1 -p "Push $BRANCH too [Y/n]? " answer
 		if [ "$answer" != "${answer#[Nn]}" ] ;then
 			echo Skipping push ...
 		else 
@@ -103,6 +104,7 @@ if [ -d ".git" ]; then
 				REMOTE=$answer
 			fi
 			git push $REMOTE $BRANCH
+			echo
 		fi
 		
 		

@@ -1,0 +1,59 @@
+# Workflow to compile the dist needed for Processing libraries
+
+name: Compile, Jar, Doc, Dist
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+    COREURL: https://repo1.maven.org/maven2/org/processing/core/3.3.7/core-3.3.7.jar
+    COREJAR: tmp/core.jar
+    LIBNAME: PortMods
+
+# A workflow run is made up of one or more jobs that can 
+# run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Download core.jar
+        run: |
+          mkdir -p `dirname $COREJAR`
+          curl $COREURL -o $COREJAR
+      - name: Compile
+        run: |
+          bin/compile.sh
+          exit $?
+      - name: Create javadoc
+        run: |
+          bin/javadoc.sh
+          exit $?
+      - name: Create dist
+        run: |
+          bin/createdist.sh
+          exit $?
+      - name: Commit generated files
+        run: |
+          git config --global user.name 'Github CI'
+          git config --global user.email 'ci@users.noreply.github.com'
+          git add library reference dist
+          git add -u
+          git status
+          git commit -m "CI Generated files"
+          git push
