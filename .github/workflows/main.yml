@@ -51,7 +51,7 @@ jobs:
       - name: Commit generated files
         run: |
           git config --global user.name 'Github CI'
-          git config --global user.email 'ci@users.noreply.github.com'
+          git config --global user.email 'commonpike@users.noreply.github.com'
           git add library reference dist
           git add -u
           git status
