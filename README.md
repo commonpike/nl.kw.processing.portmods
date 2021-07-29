@@ -25,6 +25,7 @@ Or you can download it from GIT, and put it in that folder
 yourself: 
 <https://github.com/commonpike/nl.kw.processing.portmods>
 
+Make sure to rename the local folder to 'PortMods'.
 Once it's there, choose 'sketch > import library'
 from the menu bar.
 
@@ -63,4 +64,4 @@ If you have problems, questions, suggestions or
 additions, contact me.
 
 
-pike-portmods@kw.nl
+pike-processing@kw.nl
