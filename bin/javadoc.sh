@@ -18,7 +18,7 @@ echo
 echo 'Document src/*.java to ./reference/*html ..'
 
 find src -name "*.java" -print0 | xargs -0 \
- javadoc -d reference -classpath "$corejar"
+ javadoc -notimestamp -d reference -classpath "$corejar"
 
   
 echo All done.
